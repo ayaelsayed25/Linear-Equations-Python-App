@@ -51,6 +51,7 @@ class Ui_MainWindow(object):
         self.MatricesGrid.addWidget(self.matrixA_label)
         self.MatrixAGrid = QtWidgets.QGridLayout()
         self.MatrixAGrid.setObjectName("MatrixAGrid")
+        self.matrixA = []
         self.A00 = QtWidgets.QTextEdit(self.horizontalLayoutWidget)
         self.A00.setObjectName("A00")
         self.MatrixAGrid.addWidget(self.A00, 0, 0, 1, 1)
@@ -71,6 +72,14 @@ class Ui_MainWindow(object):
         self.MatrixAGrid.addWidget(self.A01, 0, 1, 1, 1)
         self.A21 = QtWidgets.QTextEdit(self.horizontalLayoutWidget)
         self.A21.setObjectName("A21")
+        # self.matrixA.append(self.A00)
+        # self.matrixA.append(self.A00)
+        # self.matrixA.append(self.A00)
+        # self.matrixA.append(self.A00)
+
+        # self.A01.setVisible(False)
+        # self.A02.setVisible(False)
+        # self.A00.setVisible(False)
         self.MatrixAGrid.addWidget(self.A21, 2, 1, 1, 1)
         self.A10 = QtWidgets.QTextEdit(self.horizontalLayoutWidget)
         self.A10.setObjectName("A10")
@@ -128,9 +137,11 @@ class Ui_MainWindow(object):
         self.matrixA_dimen = QtWidgets.QLabel(self.gridLayoutWidget_2)
         self.matrixA_dimen.setObjectName("matrixA_dimen")
         self.toolsGrid.addWidget(self.matrixA_dimen, 0, 0, 1, 1)
+
         self.dimensionA_spin = QtWidgets.QSpinBox(self.gridLayoutWidget_2)
         self.dimensionA_spin.setProperty("value", 3)
         self.dimensionA_spin.setObjectName("dimensionA_spin")
+        self.dimensionA_spin.valueChanged.connect(self.dimension_changed)
         self.toolsGrid.addWidget(self.dimensionA_spin, 0, 1, 1, 1)
         self.iterations_number_label = QtWidgets.QLabel(self.gridLayoutWidget_2)
         self.iterations_number_label.setObjectName("iterations_number_label")
@@ -177,6 +188,15 @@ class Ui_MainWindow(object):
         self.toolsGrid.addWidget(self.absolute_relative_error_text, 6, 1, 1, 1)
         self.calculate_button = QtWidgets.QPushButton(self.frame)
         self.calculate_button.setGeometry(QtCore.QRect(380, 540, 101, 31))
+        # currentTextChanged.connect(self.on_combobox_changed)
+        self.decomposition_method_combo.setVisible(False)
+        self.paremters_label.setVisible(False)
+        self.absolute_erroe_label.setVisible(False)
+        self.absolute_relative_error_text.setVisible(False)
+        self.iterations_number.setVisible(False)
+        self.iterations_number_label.setVisible(False)
+
+        # self.calculate_button.clicked.connect(self.loadButton_handler)
         font = QtGui.QFont()
         font.setFamily("Nirmala UI Semilight")
         font.setPointSize(10)
@@ -189,6 +209,27 @@ class Ui_MainWindow(object):
 
         self.retranslateUi(MainWindow)
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
+
+    def dimension_changed(self):
+        newDimension = self.dimensionA_spin.value()
+        for i in range(0, newDimension):
+            temp = QtWidgets.QTextEdit(self.horizontalLayoutWidget)
+            temp.setObjectName("A" + str(i) + str(newDimension - 1))
+            self.MatrixAGrid.addWidget(temp, i, newDimension - 1, 1, 1)
+
+            temp = QtWidgets.QTextEdit(self.horizontalLayoutWidget)
+            temp.setObjectName("A" + str(newDimension - 1) + str(i))
+            self.MatrixAGrid.addWidget(temp, newDimension - 1, i, 1, 1)
+        temp = QtWidgets.QTextEdit(self.horizontalLayoutWidget)
+        temp.setObjectName("B" + str(newDimension-1))
+        self.MatrixB_grid.addWidget(temp)
+
+        temp = QtWidgets.QTextEdit(self.horizontalLayoutWidget)
+        temp.setObjectName("X" + str(newDimension - 1))
+        self.MatrixX_grid.addWidget(temp)
+
+        for cell in self.horizontalLayoutWidget.children():
+            print(cell.objectName())
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
@@ -218,6 +259,7 @@ class Ui_MainWindow(object):
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
