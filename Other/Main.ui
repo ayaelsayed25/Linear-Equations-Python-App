@@ -6,7 +6,7 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>845</width>
+    <width>848</width>
     <height>592</height>
    </rect>
   </property>
@@ -94,6 +94,9 @@
       </disabled>
      </palette>
     </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
     <property name="autoFillBackground">
      <bool>true</bool>
     </property>
@@ -106,10 +109,10 @@
     <widget class="QWidget" name="horizontalLayoutWidget">
      <property name="geometry">
       <rect>
-       <x>50</x>
+       <x>110</x>
        <y>100</y>
-       <width>713</width>
-       <height>229</height>
+       <width>671</width>
+       <height>231</height>
       </rect>
      </property>
      <layout class="QHBoxLayout" name="MatricesGrid">
@@ -196,10 +199,10 @@
       </item>
      </layout>
     </widget>
-    <widget class="QLabel" name="label_3">
+    <widget class="QLabel" name="title">
      <property name="geometry">
       <rect>
-       <x>170</x>
+       <x>210</x>
        <y>20</y>
        <width>481</width>
        <height>61</height>
@@ -216,18 +219,42 @@
      <property name="text">
       <string>Solving System of Linear Equations</string>
      </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
     </widget>
     <widget class="QWidget" name="gridLayoutWidget_2">
      <property name="geometry">
       <rect>
-       <x>150</x>
+       <x>160</x>
        <y>350</y>
-       <width>481</width>
-       <height>141</height>
+       <width>561</width>
+       <height>171</height>
       </rect>
      </property>
      <layout class="QGridLayout" name="toolsGrid">
+      <item row="0" column="0">
+       <widget class="QLabel" name="matrixA_dimen">
+        <property name="text">
+         <string>Number of variables ( Dimension of A )</string>
+        </property>
+       </widget>
+      </item>
       <item row="0" column="1">
+       <widget class="QSpinBox" name="dimensionA_spin">
+        <property name="value">
+         <number>3</number>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="iterations_number_label">
+        <property name="text">
+         <string>Number of iterations :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
        <widget class="QComboBox" name="method_combo">
         <property name="editable">
          <bool>true</bool>
@@ -270,7 +297,7 @@
         </item>
        </widget>
       </item>
-      <item row="4" column="1">
+      <item row="5" column="1">
        <widget class="QComboBox" name="decomposition_method_combo">
         <item>
          <property name="text">
@@ -289,73 +316,77 @@
         </item>
        </widget>
       </item>
-      <item row="5" column="0">
-       <widget class="QLabel" name="iterations_number_label">
-        <property name="text">
-         <string>Number of iterations :</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
+      <item row="1" column="0">
        <widget class="QLabel" name="methods_label">
         <property name="text">
          <string>Method :</string>
         </property>
        </widget>
       </item>
-      <item row="6" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Absolute Relative Error :</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0">
-       <widget class="QLabel" name="paremters_label">
-        <property name="text">
-         <string>Method of decomposition :</string>
-        </property>
-       </widget>
-      </item>
-      <item row="5" column="1">
+      <item row="7" column="1">
        <widget class="QSpinBox" name="iterations_number">
         <property name="value">
          <number>3</number>
         </property>
        </widget>
       </item>
-      <item row="6" column="1">
-       <widget class="QTextEdit" name="textEdit"/>
+      <item row="5" column="0">
+       <widget class="QLabel" name="paremters_label">
+        <property name="text">
+         <string>Method of decomposition :</string>
+        </property>
+       </widget>
       </item>
-      <item row="3" column="0">
-       <widget class="QLabel" name="label_2">
+      <item row="4" column="0">
+       <widget class="QLabel" name="significant_figures_label">
         <property name="text">
          <string>Number of Significant Figures :</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="1">
-       <widget class="QSpinBox" name="spinBox">
+      <item row="4" column="1">
+       <widget class="QSpinBox" name="significant_figures_spin">
         <property name="value">
          <number>3</number>
         </property>
        </widget>
       </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="absolute_erroe_label">
+        <property name="text">
+         <string>Absolute Relative Error :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QTextEdit" name="absolute_relative_error_text"/>
+      </item>
      </layout>
+    </widget>
+    <widget class="QPushButton" name="calculate_button">
+     <property name="geometry">
+      <rect>
+       <x>380</x>
+       <y>540</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Nirmala UI Semilight</family>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Calculate</string>
+     </property>
     </widget>
    </widget>
   </widget>
-  <widget class="QMenuBar" name="menubar">
-   <property name="geometry">
-    <rect>
-     <x>0</x>
-     <y>0</y>
-     <width>845</width>
-     <height>24</height>
-    </rect>
-   </property>
-  </widget>
-  <widget class="QStatusBar" name="statusbar"/>
  </widget>
  <resources/>
  <connections/>
