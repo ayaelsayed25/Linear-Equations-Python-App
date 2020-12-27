@@ -1,10 +1,9 @@
-from PyQt5 import QtCore, QtGui, QtWidgets
 import gc
-from copy import deepcopy
-from JacobiGaussSeidel import *
-from GaussElimination import *
-from answer import *
+
 from CroutDecomposition import *
+from GaussElimination import *
+from JacobiGaussSeidel import *
+from answer import *
 
 dimension = 3
 method = 0
@@ -20,19 +19,19 @@ class Ui_MainWindow(object):
         brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 248, 208))
+        brush = QtGui.QBrush(QtGui.QColor(255, 243, 240))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Active, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 255, 255))
+        brush = QtGui.QBrush(QtGui.QColor(255, 243, 240))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 248, 208))
+        brush = QtGui.QBrush(QtGui.QColor(255, 243, 240))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Inactive, QtGui.QPalette.Window, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 248, 208))
+        brush = QtGui.QBrush(QtGui.QColor(255, 243, 240))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Base, brush)
-        brush = QtGui.QBrush(QtGui.QColor(255, 248, 208))
+        brush = QtGui.QBrush(QtGui.QColor(255, 243, 240))
         brush.setStyle(QtCore.Qt.SolidPattern)
         palette.setBrush(QtGui.QPalette.Disabled, QtGui.QPalette.Window, brush)
         MainWindow.setPalette(palette)
@@ -329,12 +328,21 @@ class Ui_MainWindow(object):
             if decomposition_method == 1:
                 answer = crout(self.matrixA, dimension, number_of_significant_figures)
         elif method == 4:
-            answer = gauss_seidel(dimension, numberOfIterations, self.matrixA, self.matrixB, self.matrixX,
-                                  number_of_significant_figures)
-
+            if absolute_error == '':
+                answer = gauss_seidel(dimension, numberOfIterations, self.matrixA, self.matrixB, self.matrixX,
+                                      number_of_significant_figures)
+            else:
+                answer = gauss_seidel_absolute_error(dimension, float(absolute_error), self.matrixA, self.matrixB,
+                                                     self.matrixX,
+                                                     number_of_significant_figures)
         elif method == 5:
-            answer = jacobi(dimension, numberOfIterations, self.matrixA, self.matrixB, self.matrixX,
-                            number_of_significant_figures)
+            if absolute_error == '':
+                answer = jacobi(dimension, numberOfIterations, self.matrixA, self.matrixB, self.matrixX,
+                                number_of_significant_figures)
+            else:
+                answer = jacobi_absolute_error(dimension, float(absolute_error), self.matrixA, self.matrixB,
+                                               self.matrixX,
+                                               number_of_significant_figures)
 
     def show_answer(self, ui, window):
         global answer
@@ -359,7 +367,7 @@ class Ui_MainWindow(object):
         self.decomposition_method_combo.setItemText(2, _translate("MainWindow", "Cholesky Form"))
         self.significant_figures_label.setText(_translate("MainWindow", "Number of Significant Figures :"))
         self.paremters_label.setText(_translate("MainWindow", "Method of decomposition :"))
-        self.absolute_erroe_label.setText(_translate("MainWindow", "Absolute Relative Error :"))
+        self.absolute_erroe_label.setText(_translate("MainWindow", "Absolute Relative Error : \n(number of iterations may differ than desired number to achieve error)"))
         self.matrixA_dimen.setText(_translate("MainWindow", "Number of variables ( Dimension of A )"))
         self.iterations_number_label.setText(_translate("MainWindow", "Number of iterations :"))
         self.calculate_button.setText(_translate("MainWindow", "Calculate"))
