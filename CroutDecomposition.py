@@ -18,7 +18,7 @@ def crout(matrix, dimension, number_of_significant_figures):
 
     #  Calculating the first column of [L]:
     for i in range(0, dimension):
-        L[i][0] = matrix[i][0]
+        L[i][0] = roundNumber(matrix[i][0], number_of_significant_figures)
 
     samlpleL = deepcopy(L)
     for i in range(1, dimension):
@@ -27,7 +27,7 @@ def crout(matrix, dimension, number_of_significant_figures):
     answer = answer + "\n\nL :\n"
     answer = answer + print_Matrix(samlpleL)
     sampleU = deepcopy(U)
-    for i in range(dimension, 0,-1):
+    for i in range(dimension, 0, -1):
         for j in range(i, dimension):
             sampleU[i][j] = f"U{i}{j}"
     answer = answer + "\n\nU :\n"
@@ -48,7 +48,9 @@ def crout(matrix, dimension, number_of_significant_figures):
                     answer = answer + f"{L[i][k]} * {U[k][j]} = "
                 else:
                     answer = answer + f"{L[i][k]} * {U[k][j]} + "
-                sigma_sum += L[i][k] * U[k][j]
+                sigma_sum += roundNumber(roundNumber(L[i][k], number_of_significant_figures) *
+                                         roundNumber(U[k][j], number_of_significant_figures),
+                                         number_of_significant_figures)
             L[i][j] = matrix[i][j] - sigma_sum
             answer = answer + str(sigma_sum)
             answer = answer + f"\nL{i}{j} = {matrix[i][j]} - {sigma_sum} = {L[i][j]}\n\n"
@@ -61,16 +63,18 @@ def crout(matrix, dimension, number_of_significant_figures):
                     answer = answer + f"{L[i][k]} * {U[k][j]} = "
                 else:
                     answer = answer + f"{L[i][k]} * {U[k][j]} + "
-                sigma_sum += L[i][k] * U[k][j]
-            U[i][j] = (matrix[i][j] - sigma_sum) / L[i][i]
+                sigma_sum += roundNumber(roundNumber(L[i][k], number_of_significant_figures) *
+                                         roundNumber(U[k][j], number_of_significant_figures),
+                                         number_of_significant_figures)
+            U[i][j] = roundNumber((matrix[i][j] - sigma_sum) / L[i][i], number_of_significant_figures)
             answer = answer + str(sigma_sum)
             answer = answer + f"\nU{i}{j} =( {matrix[i][j]} - {sigma_sum} ) / {L[i][i]} = {U[i][j]}\n\n"
             U[i][j] = roundNumber(U[i][j], number_of_significant_figures)
 
-    answer = answer +"L Matrix :\n"
+    answer = answer + "L Matrix :\n"
     answer = answer + print_Matrix(L)
-    answer = answer +"\nU Matrix :\n"
-    answer = answer +print_Matrix(U)
+    answer = answer + "\nU Matrix :\n"
+    answer = answer + print_Matrix(U)
     print(answer)
 
 
@@ -81,6 +85,7 @@ def roundNumber(number, number_of_significant_figures):
 def print_Matrix(matrix):
     return ('\n'.join([''.join([formatting.format(str(item)) for item in row])
                        for row in matrix]))
+
 
 matrix_input = [[1, 2, 3],
                 [2, 20, 26],
