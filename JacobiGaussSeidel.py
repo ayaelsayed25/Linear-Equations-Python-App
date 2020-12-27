@@ -74,7 +74,7 @@ def gauss_seidel(n: int, n_iterations: int, matrix: list, b: list, initial_x: li
                 infinity = np.isinf(new_x[j])
                 if nan or infinity:
                     output = output + "Can't reach this number of iterations \n"
-                    return i - 1, output
+                    return test(output, i - 1)
                 if new_x[j] != 0:
                     new_x[j] = round(new_x[j], n_sig_fig - int(math.floor(math.log10(abs(new_x[j])))) - 1)
                     initial_x[j] = new_x[j]
@@ -85,7 +85,7 @@ def gauss_seidel(n: int, n_iterations: int, matrix: list, b: list, initial_x: li
         # Adding results of each iteration
         for item in initial_x:
             result.append(item)
-    return output
+    return test(output, n_iterations)
 
 
 def maximum_error(initial_x, new_x):
@@ -130,7 +130,7 @@ def gauss_seidel_absolute_error(n: int, error: float, matrix: list, b: list, ini
                 infinity = np.isinf(new_x[j])
                 if nan or infinity:
                     output = output + "Can't reach this relative error \n"
-                    return i - 1, output
+                    return test(output, i - 1)
                 if new_x[j] != 0:
                     new_x[j] = round(new_x[j], n_sig_fig - int(math.floor(math.log10(abs(new_x[j])))) - 1)
             initial_x[j] = new_x[j]
@@ -144,14 +144,14 @@ def gauss_seidel_absolute_error(n: int, error: float, matrix: list, b: list, ini
         infinity = any(np.isinf(new_x[:]))
         if nan or infinity:
             output = output + "It can't reach this absolute relative error \n"
-            return i, output
+            return test(output, i)
         # Adding results of each iteration
         for item in initial_x:
             result.append(item)
         i = i + 1
         if absolute_error <= error:
             break
-    return i, output
+    return test(output, i)
 
 
 def jacobi(n: int, n_iterations: int, matrix: list, b: list, initial_x: list, n_sig_fig: int):
@@ -177,7 +177,7 @@ def jacobi(n: int, n_iterations: int, matrix: list, b: list, initial_x: list, n_
                 infinity = np.isinf(new_x[j])
                 if nan or infinity:
                     output = output + "Can't reach this number of iterations \n"
-                    return i - 1, output
+                    return test(output, i - 1)
                 if new_x[j] != 0:
                     new_x[j] = round(new_x[j], n_sig_fig - int(math.floor(math.log10(abs(new_x[j])))) - 1)
             # Steps Formatting
@@ -188,7 +188,7 @@ def jacobi(n: int, n_iterations: int, matrix: list, b: list, initial_x: list, n_
         # Adding results of each iteration
         for item in initial_x:
             result.append(item)
-    return output
+    return test(output, n_iterations)
 
 
 def jacobi_absolute_error(n: int, error: float, matrix: list, b: list, initial_x: list, n_sig_fig: int):
@@ -213,7 +213,7 @@ def jacobi_absolute_error(n: int, error: float, matrix: list, b: list, initial_x
                 infinity = np.isinf(new_x[j])
                 if nan or infinity:
                     output = output + "Can't reach this relative error \n"
-                    return i - 1, output
+                    return test(output, i - 1)
                 if new_x[j] != 0:
                     new_x[j] = round(new_x[j], n_sig_fig - int(math.floor(math.log10(abs(new_x[j])))) - 1)
             # Steps Formatting
@@ -228,7 +228,7 @@ def jacobi_absolute_error(n: int, error: float, matrix: list, b: list, initial_x
         i = i + 1
         if absolute_error <= error:
             break
-    return i, output
+    return test(output, i)
 
 
 # Method Used for Output Table's data creation
@@ -250,8 +250,7 @@ def show_result(n_iterations: int, n: int, output: str):
     return output
 
 
-# test
-nOfIterations, output0 = jacobi_absolute_error(size, -1, matrix_input, b_input, x_input, nOfSignificantBits)
-result = result[0:size * nOfIterations]
-result_string = show_result(nOfIterations, size, output0)
-print(result_string)
+def test(output, nOfIterations):
+    global result
+    result = result[0:size * nOfIterations]
+    return show_result(nOfIterations, size, output)
