@@ -4,10 +4,12 @@ from copy import deepcopy
 from JacobiGaussSeidel import *
 from GaussElimination import *
 from answer import *
+from CroutDecomposition import *
 
 dimension = 3
 method = 0
 readX = False
+answer = ''
 
 
 class Ui_MainWindow(object):
@@ -121,7 +123,6 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.calculate_button.setFont(font)
         self.calculate_button.setObjectName("calculate_button")
-        self.calculate_button.clicked.connect(self.readMatrices)
         self.gridLayout_2.addWidget(self.calculate_button, 0, 1, 1, 1)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem, 0, 2, 1, 1)
@@ -279,6 +280,7 @@ class Ui_MainWindow(object):
 
     def readMatrices(self):
         global dimension
+        global method
         self.matrixA = [[0 for x in range(dimension)] for y in range(dimension)]
         self.matrixB = [0 for x in range(dimension)]
         for i in range(0, dimension):
@@ -308,9 +310,11 @@ class Ui_MainWindow(object):
         self.executeMethod()
 
     def executeMethod(self):
+        global method
+        global answer
         numberOfIterations = self.iterations_number.value()
         augumentedMatrixA = deepcopy(self.matrixA)
-
+        number_of_significant_figures = self.significant_figures_spin.value()
         for i in range(0, dimension):
             augumentedMatrixA[i].append(self.matrixB[i])
         if method == 0:
@@ -319,15 +323,24 @@ class Ui_MainWindow(object):
             jordanelimination(augumentedMatrixA, dimension)
         elif method == 2:
             gausswithpivoting(augumentedMatrixA, dimension)
-        # elif (method == 3):
+        elif method == 3:
+            decomposition_method = self.decomposition_method_combo.currentIndex()
+            if decomposition_method == 1:
+                answer = crout(self.matrixA, dimension, number_of_significant_figures)
         elif method == 4:
-            gauss_seidel(dimension, numberOfIterations, self.matrixA, self.matrixB, self.matrixX)
+            gauss_seidel(dimension, numberOfIterations, self.matrixA, self.matrixB, self.matrixX,
+                         number_of_significant_figures)
             show_result(numberOfIterations, dimension)
 
         elif method == 5:
-            jacobi(dimension, numberOfIterations, self.matrixA, self.matrixB, self.matrixX)
+            jacobi(dimension, numberOfIterations, self.matrixA, self.matrixB, self.matrixX,
+                   number_of_significant_figures)
             show_result(numberOfIterations, dimension)
-
+    def show_answer(self,ui,window):
+        global answer
+        self.readMatrices()
+        ui.label.setText(answer)
+        window.show()
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -363,8 +376,8 @@ if __name__ == "__main__":
     ui.setupUi(MainWindow)
     MainWindow.show()
     answerWindow = QtWidgets.QMainWindow()
-    answer = answer_window()
-    answer.setupUi(answerWindow)
-    ui.calculate_button.clicked.connect(answerWindow.show)
+    answer_ui = answer_window()
+    answer_ui.setupUi(answerWindow)
+    ui.calculate_button.clicked.connect(lambda: ui.show_answer(answer_ui,answerWindow))
 
     sys.exit(app.exec_())

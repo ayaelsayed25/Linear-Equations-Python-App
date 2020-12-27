@@ -75,7 +75,7 @@ def crout(matrix, dimension, number_of_significant_figures):
     answer = answer + print_Matrix(L)
     answer = answer + "\nU Matrix :\n"
     answer = answer + print_Matrix(U)
-    print(answer)
+    return answer
 
 
 def roundNumber(number, number_of_significant_figures):
@@ -90,4 +90,3 @@ def print_Matrix(matrix):
 matrix_input = [[1, 2, 3],
                 [2, 20, 26],
                 [3, 26, 70]]
-crout(matrix_input, 3, 2)

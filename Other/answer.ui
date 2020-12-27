@@ -97,10 +97,17 @@
         </palette>
        </property>
        <property name="text">
-        <string>TextLabel</string>
+        <string> </string>
        </property>
        <property name="alignment">
         <set>Qt::AlignCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QPushButton" name="show_answer">
+       <property name="text">
+        <string>Click here to show answer</string>
        </property>
       </widget>
      </item>
