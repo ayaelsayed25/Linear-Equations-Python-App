@@ -4,6 +4,8 @@ from CroutDecomposition import *
 from GaussElimination import *
 from JacobiGaussSeidel import *
 from answer import *
+from Cheloskey import *
+from LUDecomposition import *
 
 dimension = 3
 method = 0
@@ -325,8 +327,12 @@ class Ui_MainWindow(object):
             gausswithpivoting(augumentedMatrixA, dimension)
         elif method == 3:
             decomposition_method = self.decomposition_method_combo.currentIndex()
-            if decomposition_method == 1:
-                answer = crout(self.matrixA, dimension, number_of_significant_figures)
+            if decomposition_method == 0:
+                answer = downLittleDecomposition(self.matrixA, self.matrixB, dimension, number_of_significant_figures)
+            elif decomposition_method == 1:
+                answer = crout(self.matrixA, self.matrixB, dimension, number_of_significant_figures, )
+            elif decomposition_method == 2:
+                answer = cheloskeyDecomposition(self.matrixA, self.matrixB, dimension, number_of_significant_figures)
         elif method == 4:
             if absolute_error == '':
                 answer = gauss_seidel(dimension, numberOfIterations, self.matrixA, self.matrixB, self.matrixX,
@@ -367,7 +373,8 @@ class Ui_MainWindow(object):
         self.decomposition_method_combo.setItemText(2, _translate("MainWindow", "Cholesky Form"))
         self.significant_figures_label.setText(_translate("MainWindow", "Number of Significant Figures :"))
         self.paremters_label.setText(_translate("MainWindow", "Method of decomposition :"))
-        self.absolute_erroe_label.setText(_translate("MainWindow", "Absolute Relative Error : \n(number of iterations may differ than desired number to achieve error)"))
+        self.absolute_erroe_label.setText(_translate("MainWindow",
+                                                     "Absolute Relative Error : \n(number of iterations may differ than desired number to achieve error)"))
         self.matrixA_dimen.setText(_translate("MainWindow", "Number of variables ( Dimension of A )"))
         self.iterations_number_label.setText(_translate("MainWindow", "Number of iterations :"))
         self.calculate_button.setText(_translate("MainWindow", "Calculate"))

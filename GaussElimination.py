@@ -183,12 +183,12 @@ def print_Matrix(matrix):
 # print(gauss(matrix, s))
 # print(gauss(matrix1, s))
 # print(gauss(matrix2, 2))
-
-s = 3
-matrix = [[2, 3, 4, 1], [1, 0, 3, 1.5], [4, 5, 2, 2]]
-matrix1 = [[2, 0, 4, 1], [1, 0, 3, 1.5], [4, -0, 2, 2]]
-matrix2 = [[2, 3, 5], [4, 6, 10]]
-print(gausswithpivoting(matrix, s))
+#
+# s = 3
+# matrix = [[2, 3, 4, 1], [1, 0, 3, 1.5], [4, 5, 2, 2]]
+# matrix1 = [[2, 0, 4, 1], [1, 0, 3, 1.5], [4, -0, 2, 2]]
+# matrix2 = [[2, 3, 5], [4, 6, 10]]
+# print(gausswithpivoting(matrix, s))
 # gausswithpivoting(matrix1, s)
 # gausswithpivoting(matrix2, 2)
 #
