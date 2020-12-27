@@ -1,6 +1,10 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+import gc
+from JacobiGaussSeidel import *
 
 dimension = 3
+method = 0
+readX = False
 
 
 class Ui_MainWindow(object):
@@ -114,6 +118,7 @@ class Ui_MainWindow(object):
         font.setWeight(50)
         self.calculate_button.setFont(font)
         self.calculate_button.setObjectName("calculate_button")
+        self.calculate_button.clicked.connect(self.readMatrices)
         self.gridLayout_2.addWidget(self.calculate_button, 0, 1, 1, 1)
         spacerItem = QtWidgets.QSpacerItem(40, 20, QtWidgets.QSizePolicy.Expanding, QtWidgets.QSizePolicy.Minimum)
         self.gridLayout_2.addItem(spacerItem, 0, 2, 1, 1)
@@ -204,6 +209,8 @@ class Ui_MainWindow(object):
         QtCore.QMetaObject.connectSlotsByName(MainWindow)
 
     def reset(self):
+        global readX
+        readX = False
         self.decomposition_method_combo.setVisible(False)
         self.paremters_label.setVisible(False)
         self.absolute_erroe_label.setVisible(False)
@@ -212,6 +219,9 @@ class Ui_MainWindow(object):
         self.iterations_number_label.setVisible(False)
 
     def on_method_changed(self, index):
+        # number of method to be executed
+        global method
+        method = index
         if index == 3:
             self.reset()
             self.decomposition_method_combo.setVisible(True)
@@ -234,10 +244,10 @@ class Ui_MainWindow(object):
                 temp.setObjectName("A" + str(i) + str(self.newDimension - 1))
                 self.MatrixAGrid.addWidget(temp, i, self.newDimension - 1, 1, 1)
 
-            for i in range(0,self.newDimension-1) :
-                 temp = QtWidgets.QLineEdit(self.gridLayoutWidget)
-                 temp.setObjectName("A" + str(self.newDimension - 1) + str(i))
-                 self.MatrixAGrid.addWidget(temp, self.newDimension - 1, i, 1, 1)
+            for i in range(0, self.newDimension - 1):
+                temp = QtWidgets.QLineEdit(self.gridLayoutWidget)
+                temp.setObjectName("A" + str(self.newDimension - 1) + str(i))
+                self.MatrixAGrid.addWidget(temp, self.newDimension - 1, i, 1, 1)
             temp = QtWidgets.QLineEdit(self.gridLayoutWidget)
             temp.setObjectName("B" + str(self.newDimension - 1))
             self.MatrixB_grid.addWidget(temp)
@@ -245,21 +255,60 @@ class Ui_MainWindow(object):
             temp.setObjectName("X" + str(self.newDimension - 1))
             self.MatrixX_grid.addWidget(temp)
         else:
-            for i in range(0, self.newDimension+1):
-                print("hello")
-                print("A" + str(i) + str(self.newDimension))
+            for i in range(0, self.newDimension + 1):
                 temp = self.gridLayoutWidget.findChild(QtWidgets.QLineEdit, "A" + str(i) + str(self.newDimension))
-                temp.setVisible(False)
+                temp.setParent(None)
+                del temp
+
             for i in range(0, self.newDimension):
                 temp = self.gridLayoutWidget.findChild(QtWidgets.QLineEdit, "A" + str(self.newDimension) + str(i))
-                print("A" + str(self.newDimension) + str(i))
-                temp.setVisible(False)
+                temp.setParent(None)
+                del temp
+
+            temp = self.gridLayoutWidget.findChild(QtWidgets.QLineEdit, "B" + str(self.newDimension))
+            temp.setParent(None)
+            del temp
+            temp = self.gridLayoutWidget.findChild(QtWidgets.QLineEdit, "X" + str(self.newDimension))
+            temp.setParent(None)
+            del temp
+            gc.collect()
         dimension = self.newDimension
-        # self.horizontalLayoutWidget.setGeometry(QtCore.QRect(110, 100, 671+newDimension*20, 231+newDimension*20))
 
-    # def readMatrices(self):
-        # for(for i in range(0, self.newDimension+1):)
+    def readMatrices(self):
+        global dimension
+        self.matrixA = [[0 for x in range(dimension)] for y in range(dimension)]
+        self.matrixB = [0 for x in range(dimension)]
+        for i in range(0, dimension):
+            for j in range(0, dimension):
+                # print("A" + str(i) + str(j))
+                temp = self.gridLayoutWidget.findChild(QtWidgets.QLineEdit, "A" + str(i) + str(j)).text()
+                if temp != '':
+                    self.matrixA[i][j] = int(temp)
+        for i in range(0, dimension):
+            temp = self.gridLayoutWidget.findChild(QtWidgets.QLineEdit, "B" + str(i)).text()
+            if (temp != ''):
+                self.matrixB[i] = int(temp)
+        if method == 5 or method == 4:
+            self.matrixX = [0 for x in range(dimension)]
+            for i in range(0, dimension):
+                self.matrixX[i] = int(
+                    self.gridLayoutWidget.findChild(QtWidgets.QLineEdit, "X" + str(i)).text())
+            # print(self.matrixX)
+        self.executeMethod()
 
+    def executeMethod(self):
+        # if(method==0):
+        # elif(method==1):
+        # elif (method == 2):
+        # elif (method == 3):
+        numberOfIterations = self.iterations_number.value()
+        if (method == 4):
+            gauss_seidel(dimension, numberOfIterations, self.matrixA, self.matrixB, self.matrixX)
+            show_result(numberOfIterations, dimension)
+
+        elif (method == 5):
+            jacobi(dimension, numberOfIterations, self.matrixA, self.matrixB, self.matrixX)
+            show_result(numberOfIterations, dimension)
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
