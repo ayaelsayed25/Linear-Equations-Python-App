@@ -260,6 +260,7 @@ class Ui_MainWindow(object):
     # def readMatrices(self):
         # for(for i in range(0, self.newDimension+1):)
 
+
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
@@ -293,7 +294,5 @@ if __name__ == "__main__":
     MainWindow = QtWidgets.QMainWindow()
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
-    # MainWindow.show()
-    # MainWindow.showMaximized()
-
+    MainWindow.show()
     sys.exit(app.exec_())
