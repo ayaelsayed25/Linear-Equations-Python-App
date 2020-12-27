@@ -50,8 +50,9 @@ def matrix_equality(matrix1, matrix2):
 def gauss_seidel(n: int, n_iterations: int, matrix: list, b: list, initial_x: list, n_sig_fig: int):
     # Check convergence
     converges = diagonally_dominant(matrix, n)
+    output = ""
     if converges:
-        print("Matrix is diagonally dominant , Solution must converge ")
+        output = output + "Matrix is diagonally dominant , Solution must converge \n"
     new_x = []
     for i in range(n):
         new_x.append(0)
@@ -59,8 +60,8 @@ def gauss_seidel(n: int, n_iterations: int, matrix: list, b: list, initial_x: li
 
     for i in range(n_iterations):
         # Printing Steps
-        print("Iteration " + str(i + 1) + " :")
-        print("steps : ")
+        output = output + "Iteration " + str(i + 1) + " :\n"
+        output = output + "steps : \n"
         for j in range(n):
             new = "X" + str(j) + " = 1/" + str(d[j]) + " [ "
             new_x[j] = b[j] / d[j]
@@ -69,16 +70,22 @@ def gauss_seidel(n: int, n_iterations: int, matrix: list, b: list, initial_x: li
             for k in range(n):
                 new = new + str(matrix[j][k]) + "*" + str(initial_x[k]) + " - "
                 new_x[j] = new_x[j] - matrix[j][k] * initial_x[k] / d[j]
+                nan = np.isnan(new_x[j])
+                infinity = np.isinf(new_x[j])
+                if nan or infinity:
+                    output = output + "Can't reach this number of iterations \n"
+                    return i - 1, output
                 if new_x[j] != 0:
                     new_x[j] = round(new_x[j], n_sig_fig - int(math.floor(math.log10(abs(new_x[j])))) - 1)
                     initial_x[j] = new_x[j]
             # Steps formatting
             new = new[0:len(new) - 2]
             new = new + "] = " + str(initial_x[j])
-            print(new)
+            output = output + new + "\n"
         # Adding results of each iteration
         for item in initial_x:
             result.append(item)
+    return output
 
 
 def maximum_error(initial_x, new_x):
@@ -90,28 +97,27 @@ def maximum_error(initial_x, new_x):
             error = abs((new_x[i] - initial_x[i]) / new_x[i]) * 100
         if error > maximum:
             maximum = error
-    print(maximum)
     return maximum
 
 
 def gauss_seidel_absolute_error(n: int, error: float, matrix: list, b: list, initial_x: list, n_sig_fig: int):
+    output = ""
     # Check convergence
     converges = diagonally_dominant(matrix, n)
     if converges:
-        print("Matrix is diagonally dominant , Solution must converge ")
+        output = output + "Matrix is diagonally dominant , Solution must converge \n"
     last_x = []
     new_x = []
     for i in range(n):
         new_x.append(0)
         last_x.append(0)
     last_x, initial_x = matrix_equality(last_x, initial_x)
-
     d, matrix = d_matrix(matrix, n)
     i = 0
     while True:
         # Printing Steps
-        print("Iteration " + str(i + 1) + " :")
-        print("steps : ")
+        output = output + "Iteration " + str(i + 1) + " :\n"
+        output = output + "steps : \n"
         for j in range(n):
             new = "X" + str(j) + " = 1/" + str(d[j]) + " [ "
             new_x[j] = b[j] / d[j]
@@ -123,29 +129,29 @@ def gauss_seidel_absolute_error(n: int, error: float, matrix: list, b: list, ini
                 nan = np.isnan(new_x[j])
                 infinity = np.isinf(new_x[j])
                 if nan or infinity:
-                    print("Can't reach this relative error ")
-                    return i - 1
+                    output = output + "Can't reach this relative error \n"
+                    return i - 1, output
                 if new_x[j] != 0:
                     new_x[j] = round(new_x[j], n_sig_fig - int(math.floor(math.log10(abs(new_x[j])))) - 1)
             initial_x[j] = new_x[j]
             # Steps formatting
             new = new[0:len(new) - 2]
             new = new + "] = " + str(initial_x[j])
-            print(new)
+            output = output + new + "\n"
         absolute_error = maximum_error(last_x, new_x)
         last_x, new_x = matrix_equality(last_x, new_x)
         nan = any(np.isnan(new_x[:]))
         infinity = any(np.isinf(new_x[:]))
         if nan or infinity:
-            print("It can't reach this absolute relative error ")
-            return i
+            output = output + "It can't reach this absolute relative error \n"
+            return i, output
         # Adding results of each iteration
         for item in initial_x:
             result.append(item)
         i = i + 1
         if absolute_error <= error:
             break
-    return i
+    return i, output
 
 
 def jacobi(n: int, n_iterations: int, matrix: list, b: list, initial_x: list, n_sig_fig: int):
@@ -154,11 +160,11 @@ def jacobi(n: int, n_iterations: int, matrix: list, b: list, initial_x: list, n_
         new_x.append(0)
 
     d, matrix = d_matrix(matrix, n)
-
+    output = ""
     for i in range(n_iterations):
         # Printing Steps
-        print("Iteration " + str(i + 1) + " :")
-        print("steps : ")
+        output = output + "Iteration " + str(i + 1) + " :\n"
+        output = output + "steps : \n"
         for j in range(n):
             new = "X" + str(j) + " = 1/" + str(d[j]) + " [ "
             new_x[j] = b[j] / d[j]
@@ -167,16 +173,22 @@ def jacobi(n: int, n_iterations: int, matrix: list, b: list, initial_x: list, n_
             for k in range(n):
                 new = new + str(matrix[j][k]) + "*" + str(initial_x[k]) + " - "
                 new_x[j] = new_x[j] - matrix[j][k] * initial_x[k] / d[j]
+                nan = np.isnan(new_x[j])
+                infinity = np.isinf(new_x[j])
+                if nan or infinity:
+                    output = output + "Can't reach this number of iterations \n"
+                    return i - 1, output
                 if new_x[j] != 0:
                     new_x[j] = round(new_x[j], n_sig_fig - int(math.floor(math.log10(abs(new_x[j])))) - 1)
             # Steps Formatting
             new = new[0:len(new) - 2]
             new = new + "] = " + str(new_x[j])
-            print(new)
+            output = output + new + "\n"
         initial_x, new_x = matrix_equality(initial_x, new_x)
         # Adding results of each iteration
         for item in initial_x:
             result.append(item)
+    return output
 
 
 def jacobi_absolute_error(n: int, error: float, matrix: list, b: list, initial_x: list, n_sig_fig: int):
@@ -187,8 +199,8 @@ def jacobi_absolute_error(n: int, error: float, matrix: list, b: list, initial_x
     i = 0
     while True:
         # Printing Steps
-        print("Iteration " + str(i + 1) + " :")
-        print("steps : ")
+        output = "Iteration " + str(i + 1) + " :\n"
+        output = output + "steps : \n"
         for j in range(n):
             new = "X" + str(j) + " = 1/" + str(d[j]) + " [ "
             new_x[j] = b[j] / d[j]
@@ -200,14 +212,14 @@ def jacobi_absolute_error(n: int, error: float, matrix: list, b: list, initial_x
                 nan = np.isnan(new_x[j])
                 infinity = np.isinf(new_x[j])
                 if nan or infinity:
-                    print("Can't reach this relative error ")
-                    return i - 1
+                    output = output + "Can't reach this relative error \n"
+                    return i - 1, output
                 if new_x[j] != 0:
                     new_x[j] = round(new_x[j], n_sig_fig - int(math.floor(math.log10(abs(new_x[j])))) - 1)
             # Steps Formatting
             new = new[0:len(new) - 2]
             new = new + "] = " + str(new_x[j])
-            print(new)
+            output = output + new + "\n"
         initial_x, new_x = matrix_equality(initial_x, new_x)
         absolute_error = maximum_error(initial_x, new_x)
         # Adding results of each iteration
@@ -216,7 +228,7 @@ def jacobi_absolute_error(n: int, error: float, matrix: list, b: list, initial_x
         i = i + 1
         if absolute_error <= error:
             break
-    return i
+    return i, output
 
 
 # Method Used for Output Table's data creation
@@ -228,16 +240,18 @@ def string_format(n, n_iterations):
 
 
 # Method to formal resultant Table
-def show_result(n_iterations: int, n: int):
+def show_result(n_iterations: int, n: int, output: str):
     string_format(n, n_iterations)
     result_matrix = np.reshape(result, (n_iterations, n))
     row_format = "{:>30}" * (len(data) + 1)
-    print(row_format.format("", *data))
+    output = output + row_format.format("", *data) + "\n"
     for iteration, row in zip(iterations, result_matrix):
-        print(row_format.format(iteration, *row))
+        output = output + row_format.format(iteration, *row) + "\n"
+    return output
 
 
 # test
-numberOfIterations = gauss_seidel_absolute_error(size, 20, matrix_input, b_input, x_input, nOfSignificantBits)
-result = result[0:size * numberOfIterations]
-show_result(numberOfIterations, size)
+nOfIterations, output0 = jacobi_absolute_error(size, -1, matrix_input, b_input, x_input, nOfSignificantBits)
+result = result[0:size * nOfIterations]
+result_string = show_result(nOfIterations, size, output0)
+print(result_string)
