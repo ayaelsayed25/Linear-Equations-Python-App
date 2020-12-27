@@ -1,1 +1,1 @@
-pyuic5.exe -x Main.ui -o Main.py
+pyuic5.exe -x answer.ui -o answer.py

@@ -3,6 +3,7 @@ import gc
 from copy import deepcopy
 from JacobiGaussSeidel import *
 from GaussElimination import *
+from answer import *
 
 dimension = 3
 method = 0
@@ -361,4 +362,9 @@ if __name__ == "__main__":
     ui = Ui_MainWindow()
     ui.setupUi(MainWindow)
     MainWindow.show()
+    answerWindow = QtWidgets.QMainWindow()
+    answer = answer_window()
+    answer.setupUi(answerWindow)
+    ui.calculate_button.clicked.connect(answerWindow.show)
+
     sys.exit(app.exec_())
