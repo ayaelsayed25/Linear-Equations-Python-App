@@ -117,6 +117,6 @@ def show_result(n_iterations: int, n: int):
     for iteration, row in zip(iterations, result_matrix):
         print(row_format.format(iteration, *row))
 
-
-gauss_seidel(size, numberOfIterations, matrix_input, b_input, x_input)
-show_result(numberOfIterations, size)
+#
+# gauss_seidel(size, numberOfIterations, matrix_input, b_input, x_input)
+# show_result(numberOfIterations, size)

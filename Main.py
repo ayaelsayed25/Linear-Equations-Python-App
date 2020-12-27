@@ -1,6 +1,8 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 import gc
+from copy import deepcopy
 from JacobiGaussSeidel import *
+from GaussElimination import *
 
 dimension = 3
 method = 0
@@ -282,31 +284,46 @@ class Ui_MainWindow(object):
             for j in range(0, dimension):
                 # print("A" + str(i) + str(j))
                 temp = self.gridLayoutWidget.findChild(QtWidgets.QLineEdit, "A" + str(i) + str(j)).text()
-                if temp != '':
+                if temp == '':
+                    self.matrixA[i][j] = 0
+                else:
                     self.matrixA[i][j] = int(temp)
         for i in range(0, dimension):
             temp = self.gridLayoutWidget.findChild(QtWidgets.QLineEdit, "B" + str(i)).text()
-            if (temp != ''):
+            if temp == '':
+                self.matrixB[i] = 0
+            else:
                 self.matrixB[i] = int(temp)
         if method == 5 or method == 4:
             self.matrixX = [0 for x in range(dimension)]
             for i in range(0, dimension):
-                self.matrixX[i] = int(
-                    self.gridLayoutWidget.findChild(QtWidgets.QLineEdit, "X" + str(i)).text())
+                temp = self.gridLayoutWidget.findChild(QtWidgets.QLineEdit, "X" + str(i)).text()
+                if temp == '':
+                    self.matrixX[i] = 0
+                else:
+                    self.matrixX[i] = int(temp)
             # print(self.matrixX)
+
         self.executeMethod()
 
     def executeMethod(self):
-        # if(method==0):
-        # elif(method==1):
-        # elif (method == 2):
-        # elif (method == 3):
         numberOfIterations = self.iterations_number.value()
-        if (method == 4):
+        augumentedMatrixA = deepcopy(self.matrixA)
+
+        for i in range(0, dimension):
+            augumentedMatrixA[i].append(self.matrixB[i])
+        if method == 0:
+            gauss(augumentedMatrixA, dimension)
+        elif method == 1:
+            jordanelimination(augumentedMatrixA, dimension)
+        elif method == 2:
+            gausswithpivoting(augumentedMatrixA, dimension)
+        # elif (method == 3):
+        elif method == 4:
             gauss_seidel(dimension, numberOfIterations, self.matrixA, self.matrixB, self.matrixX)
             show_result(numberOfIterations, dimension)
 
-        elif (method == 5):
+        elif method == 5:
             jacobi(dimension, numberOfIterations, self.matrixA, self.matrixB, self.matrixX)
             show_result(numberOfIterations, dimension)
 
