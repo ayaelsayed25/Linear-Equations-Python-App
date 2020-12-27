@@ -1,3 +1,7 @@
+padding = 8
+formatting = '{:' + str(padding) + '}'
+
+
 # swaping rows if the pivot is zero
 def swaprows(matrix_A, i, numberofequ):
     for s in range(i + 1, numberofequ):  # looping on the rest column elements
@@ -19,68 +23,88 @@ def pivoting(matrix, i, numberofequ):
 
 # gauss elimimnation method
 def gauss(matrix, numberofequ):
+    output = ""
     for i in range(numberofequ):
-        print(matrix)
+        output = output + print_Matrix(matrix)
         if matrix[i][i] == 0:  # sawping if pivot is zero
             swaprows(matrix, i, numberofequ)
         if matrix[i][i] != 0:  # case1: nonzero pivot
             for j in range(i + 1, numberofequ):
                 factor = matrix[j][i] / matrix[i][i]
+                output = output + (
+                        "\n\nmultipler = matrix[" + str(j) + "][" + str(i) + "]/matrix[" + str(i) + "][" + str(i) + "]")
                 for k in range(numberofequ + 1):
                     matrix[j][k] = matrix[j][k] - factor * matrix[i][k]
+                output = output + ("\nR" + str(j) + "=R" + str(j) + "-multipler*R" + str(i) + "\n")
 
         else:  # case2: zero pivot then shiftting to following column
             for j in range(i + 1, numberofequ):
                 factor = matrix[j][j] / matrix[i][j]
+                output = output + (
+                        "\nmultipler=matrix[" + str(j) + "][" + str(j) + "]/matrix[" + str(i) + "][" + str(j) + "]")
                 for k in range(numberofequ + 1):
                     matrix[j][k] = matrix[j][k] - factor * matrix[i][k]
+                output = output + ("\nR" + str(j) + "=R" + str(j) + "-multipler*R" + str(i) + "\n")
 
-    solvable(matrix, numberofequ)  # determine solution type
+    solvable(matrix, numberofequ, output)  # determine solution type
+    return output
 
 
 # gauss elimination with pivoting method
 def gausswithpivoting(matrix, numberofequ):
+    output = ""
     for i in range(numberofequ):
-        print(matrix)
+        output = output + print_Matrix(matrix)
         pivoting(matrix, i, numberofequ)  # pivoting in each new row
         if matrix[i][i] != 0:  # case1: nonzero pivot
             for j in range(i + 1, numberofequ):
                 factor = matrix[j][i] / matrix[i][i]
+                output = output + (
+                        "\n\nmultipler=matrix[" + str(j) + "][" + str(i) + "]/matrix[" + str(i) + "][" + str(i) + "]")
                 for k in range(numberofequ + 1):
                     matrix[j][k] = matrix[j][k] - factor * matrix[i][k]
+                output = output + ("\nR" + str(j) + "=R" + str(j) + "-multipler*R" + str(i) + "\n")
         else:  # case2: zero pivot then shiftting to following column
             for j in range(i + 1, numberofequ):
                 factor = matrix[j][j] / matrix[i][j]
+                output = output + (
+                        "\n\nmultipler=matrix[" + str(j) + "][" + str(j) + "]/matrix[" + str(i) + "][" + str(j) + "]")
                 for k in range(numberofequ + 1):
                     matrix[j][k] = matrix[j][k] - factor * matrix[i][k]
+                output = output + ("\nR" + str(j) + "=R" + str(j) + "-multipler*R" + str(i) + "\n")
 
-    solvable(matrix, numberofequ)  # determine solution type
+    return solvable(matrix, numberofequ, output)  # determine solution type
 
 
 # gauss jorgan elimination method
 def jordanelimination(matrix, numberofequ):
+    output = ""
     for i in range(numberofequ):
-        print(matrix)
+        output = output + print_Matrix(matrix)
         if matrix[i][i] == 0:
             swaprows(matrix, i, numberofequ)  # sawping if pivot is zero
         if matrix[i][i] != 0:
             for j in range(numberofequ):
                 if i != j:
                     factor = matrix[j][i] / matrix[i][i]
+                    output = output + (
+                                "\n\nmultipler=matrix[" + str(j) + "][" + str(i) + "]/matrix[" + str(i) + "][" + str(
+                            i) + "]")
                     for k in range(numberofequ + 1):
                         matrix[j][k] = matrix[j][k] - factor * matrix[i][k]
+                    output = output + ("\nR" + str(j) + "=R" + str(j) + "-multipler*R" + str(i) + "\n")
 
     for i in range(numberofequ):  # dividing rows by pivot
         if matrix[i][i] != 0:
             temp = matrix[i][i]
             for k in range(numberofequ + 1):
                 matrix[i][k] = matrix[i][k] / temp
-    print(matrix)  # printing eliminated matrix
-    solvable(matrix, numberofequ)  # determine solution type
+    output = output + print_Matrix(matrix)  # printing eliminated matrix
+    solvable(matrix, numberofequ, output)  # determine solution type
 
 
 # determining solution type
-def solvable(matrix, numberofequ):
+def solvable(matrix, numberofequ, output):
     rank1 = numberofequ  # calculating coeffients matrix rank
     for i in range(numberofequ):
         for j in range(numberofequ):
@@ -99,12 +123,13 @@ def solvable(matrix, numberofequ):
 
     if rank1 == rank2 == numberofequ:  # case1: unique solution
         results = subistitution(matrix, numberofequ)
-        print('solution =', results, '\n')
+        output = output + '\nsolution =' + str(results) + '\n'
     elif rank1 < rank2:  # cas2: no solution
-        print("system has no solution", '\n')
+        output = output + ("\nsystem has no solution" + '\n')
     else:  # case3: multisoltion
         results = multisolution(matrix, numberofequ, rank1)
-        print('solution =', results, '\n')
+        output = output + '\nsolution =' + str(results) + '\n'
+    return output
 
 
 # case1: unique solution system
@@ -146,19 +171,24 @@ def multisolution(matrix, numberofequ, rank):
     return x
 
 
+def print_Matrix(matrix):
+    return '\nA :\n' + '\n'.join([''.join([formatting.format(str(item)) for item in row])
+                                  for row in matrix])
+
+
 # s = 3
 # matrix = [[2, 3, 4, 1], [1, 0, 3, 1.5], [4, 5, 2, 2]]
-# matrix1 = [[2, 0, 4, 1], [1, 0, 3, 1.5], [4, -0, 2, 2]]
-# matrix2 = [[2, 3, 5], [4, 6, 10]]
-# gauss(matrix, s)
-# gauss(matrix1, s)
-# gauss(matrix2, 2)
-#
-# s = 3
-# matrix = [[2, 3, 4, 1], [1, 0, 3, 1.5], [4, 5, 2, 2]]
-# matrix1 = [[2, 0, 4, 1], [1, 0, 3, 1.5], [4, -0, 2, 2]]
-# matrix2 = [[2, 3, 5], [4, 6, 10]]
-# gausswithpivoting(matrix, s)
+# # matrix1 = [[2, 0, 4, 1], [1, 0, 3, 1.5], [4, -0, 2, 2]]
+# # matrix2 = [[2, 3, 5], [4, 6, 10]]
+# print(gauss(matrix, s))
+# print(gauss(matrix1, s))
+# print(gauss(matrix2, 2))
+
+s = 3
+matrix = [[2, 3, 4, 1], [1, 0, 3, 1.5], [4, 5, 2, 2]]
+matrix1 = [[2, 0, 4, 1], [1, 0, 3, 1.5], [4, -0, 2, 2]]
+matrix2 = [[2, 3, 5], [4, 6, 10]]
+print(gausswithpivoting(matrix, s))
 # gausswithpivoting(matrix1, s)
 # gausswithpivoting(matrix2, 2)
 #
@@ -166,6 +196,6 @@ def multisolution(matrix, numberofequ, rank):
 # matrix = [[2, 3, 4, 1], [1, 0, 3, 1.5], [4, 5, 2, 2]]
 # matrix1 = [[2, 0, 4, 1], [1, 0, 3, 1.5], [4, -0, 2, 2]]
 # matrix2 = [[2, 3, 5], [4, 6, 10]]
-# jordanelimination(matrix, s)
+# print(jordanelimination(matrix, s))
 # jordanelimination(matrix1, s)
 # jordanelimination(matrix2, 2)

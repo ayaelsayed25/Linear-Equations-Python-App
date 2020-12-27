@@ -312,9 +312,9 @@ class Ui_MainWindow(object):
         global method
         global answer
         numberOfIterations = self.iterations_number.value()
-        augumentedMatrixA = deepcopy(self.matrixA)
         absolute_error = self.absolute_relative_error_text.text()
         number_of_significant_figures = self.significant_figures_spin.value()
+        augumentedMatrixA = deepcopy(self.matrixA)
         for i in range(0, dimension):
             augumentedMatrixA[i].append(self.matrixB[i])
         if method == 0:

@@ -1,11 +1,12 @@
 import math
 from copy import deepcopy
 from substitute import *
+
 padding = 8
 formatting = '{:' + str(padding) + '}'
 
 
-def crout(matrix,b, dimension, number_of_significant_figures):
+def crout(matrix, b, dimension, number_of_significant_figures):
     answer = ''
     L = [[0 for x in range(dimension)] for y in range(dimension)]
     U = [[0 for x in range(dimension)] for y in range(dimension)]
@@ -75,21 +76,23 @@ def crout(matrix,b, dimension, number_of_significant_figures):
     answer = answer + print_Matrix(L)
     answer = answer + "\nU Matrix :\n"
     answer = answer + print_Matrix(U)
-    substitute(L,U,b,dimension,3)
-    return answer
+
+    return substitute(L, U, b, dimension, 3, answer)
 
 
 def roundNumber(number, number_of_significant_figures):
-    return round(number, number_of_significant_figures - int(math.floor(math.log10(abs(number)))) - 1)
+    if number == 0:
+        return number
+    else:
+        return round(number, number_of_significant_figures - int(math.floor(math.log10(abs(number)))) - 1)
 
 
 def print_Matrix(matrix):
     return ('\n'.join([''.join([formatting.format(str(item)) for item in row])
                        for row in matrix]))
 
-
-matrix_input = [[1, 2, 3],
-                [2, 20, 26],
-                [3, 26, 70]]
-b = [1, 2, 88]
-print(crout(matrix_input,b,3,3))
+# matrix_input = [[1, 2, 3],
+#                 [2, 20, 26],
+#                 [3, 26, 70]]
+# b = [1, 2, 88]
+# print(crout(matrix_input, b, 3, 3))
