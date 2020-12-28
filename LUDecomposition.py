@@ -1,4 +1,4 @@
-padding = 8
+padding = 20
 formatting = '{:' + str(padding) + '}'
 
 
