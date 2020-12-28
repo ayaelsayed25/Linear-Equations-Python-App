@@ -1,5 +1,6 @@
 padding = 20
 formatting = '{:' + str(padding) + '}'
+from matrix_flotating import *
 
 
 def downLittleDecomposition(a, b, n, precision):
@@ -83,23 +84,3 @@ def substitute(a, index, n, b, x, f, solution):
 def print_Matrix(matrix, matrix_name):
     return f'\n{matrix_name} :\n' + '\n'.join([''.join([formatting.format(str(item)) for item in row])
                                                for row in matrix])
-# n = int(input("Enter the number of rows: "))
-# precision = int(input())
-# # Initialize matrix
-# matrix = []
-# print("Enter the entries row wise:")
-#
-# for i in range(n):  # A for loop for row entries
-#     a = array('f', [])
-#     for j in range(n):  # A for loop for column entries
-#         a.append(float(input()))
-#     matrix.append(a)
-# print("Enter b:")
-# b = array('f', [])
-# for i in range(n):
-#     b.append(float(input()))
-# for i in range(n):
-#     for j in range(n):
-#         print(matrix[i][j])
-# x = downLittleDecomposition(matrix, b, n, precision);
-# print(x)

@@ -1,9 +1,11 @@
 import math
 from copy import deepcopy
 from substitute import *
+# from Main import letters
 
 padding = 20
 formatting = '{:' + str(padding) + '}'
+from matrix_flotating import *
 
 
 def crout(matrix, b, dimension, number_of_significant_figures):
@@ -70,7 +72,6 @@ def crout(matrix, b, dimension, number_of_significant_figures):
             U[i][j] = roundNumber((matrix[i][j] - sigma_sum) / L[i][i], number_of_significant_figures)
             answer = answer + str(sigma_sum)
             answer = answer + f"\nU{i}{j} =( {matrix[i][j]} - {sigma_sum} ) / {L[i][i]} = {U[i][j]}\n\n"
-            U[i][j] = roundNumber(U[i][j], number_of_significant_figures)
 
     answer = answer + "L Matrix :\n"
     answer = answer + print_Matrix(L)
@@ -81,18 +82,16 @@ def crout(matrix, b, dimension, number_of_significant_figures):
 
 
 def roundNumber(number, number_of_significant_figures):
+    # global letters
+    # if letters:
+    #     return
     if number == 0:
         return number
     else:
-        return round(number, number_of_significant_figures - int(math.floor(math.log10(abs(number)))) - 1)
+        return round(float(number), number_of_significant_figures - int(math.floor(math.log10(abs(float(number))))) - 1)
 
 
 def print_Matrix(matrix):
     return ('\n'.join([''.join([formatting.format(str(item)) for item in row])
                        for row in matrix]))
 
-# matrix_input = [[1, 2, 3],
-#                 [2, 20, 26],
-#                 [3, 26, 70]]
-# b = [1, 2, 88]
-# print(crout(matrix_input, b, 3, 3))

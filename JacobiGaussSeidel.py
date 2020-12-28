@@ -1,5 +1,6 @@
 import math
 import numpy as np
+from matrix_flotating import *
 
 size = 3
 b_input = [5, 2, 3]
@@ -251,7 +252,7 @@ def string_format(n, n_iterations):
     for i in range(n):
         data.append("X" + str(i))
 
-0
+
 # Method to formal resultant Table
 def show_result(n_iterations: int, n: int, output: str):
     string_format(n, n_iterations)

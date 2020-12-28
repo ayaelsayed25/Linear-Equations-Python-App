@@ -1,6 +1,6 @@
 padding = 20
 formatting = '{:' + str(padding) + '}'
-
+from matrix_flotating import *
 
 # swaping rows if the pivot is zero
 def swaprows(matrix_A, i, numberofequ):
@@ -174,6 +174,7 @@ def multisolution(matrix, numberofequ, rank):
 def print_Matrix(matrix):
     return '\nA :\n' + '\n'.join([''.join([formatting.format(str(item)) for item in row])
                                   for row in matrix])
+
 
 
 # s = 3
