@@ -2,7 +2,7 @@ import math
 from copy import deepcopy
 from substitute import *
 
-padding = 8
+padding = 20
 formatting = '{:' + str(padding) + '}'
 
 
