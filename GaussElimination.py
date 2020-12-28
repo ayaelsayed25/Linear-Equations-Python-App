@@ -1,6 +1,5 @@
 padding = 20
 formatting = '{:' + str(padding) + '}'
-from matrix_flotating import *
 
 # swaping rows if the pivot is zero
 def swaprows(matrix_A, i, numberofequ):

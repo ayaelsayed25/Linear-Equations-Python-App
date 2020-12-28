@@ -5,7 +5,6 @@ from substitute import *
 
 padding = 20
 formatting = '{:' + str(padding) + '}'
-from matrix_flotating import *
 
 
 def crout(matrix, b, dimension, number_of_significant_figures):

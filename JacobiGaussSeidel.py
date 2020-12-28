@@ -1,6 +1,5 @@
 import math
 import numpy as np
-from matrix_flotating import *
 
 size = 3
 b_input = [5, 2, 3]
