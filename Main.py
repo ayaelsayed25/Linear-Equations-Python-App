@@ -227,6 +227,7 @@ class Ui_MainWindow(object):
         # number of method to be executed
         global method
         method = index
+        print(method)
         if index == 3:
             self.reset()
             self.decomposition_method_combo.setVisible(True)
@@ -320,13 +321,13 @@ class Ui_MainWindow(object):
         for i in range(0, dimension):
             augumentedMatrixA[i].append(self.matrixB[i])
         if method == 0:
-            gauss(augumentedMatrixA, dimension)
+            answer = gauss(augumentedMatrixA, dimension)
         elif method == 1:
-            jordanelimination(augumentedMatrixA, dimension)
+            answer = jordanelimination(augumentedMatrixA, dimension)
         elif method == 2:
             gausswithpivoting(augumentedMatrixA, dimension)
         elif method == 3:
-            decomposition_method = self.decomposition_method_combo.currentIndex()
+            answer = decomposition_method = self.decomposition_method_combo.currentIndex()
             if decomposition_method == 0:
                 answer = downLittleDecomposition(self.matrixA, self.matrixB, dimension, number_of_significant_figures)
             elif decomposition_method == 1:

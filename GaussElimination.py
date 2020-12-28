@@ -46,8 +46,8 @@ def gauss(matrix, numberofequ):
                     matrix[j][k] = matrix[j][k] - factor * matrix[i][k]
                 output = output + ("\nR" + str(j) + "=R" + str(j) + "-multipler*R" + str(i) + "\n")
 
-    solvable(matrix, numberofequ, output)  # determine solution type
-    return output
+      # determine solution type
+    return solvable(matrix, numberofequ, output)
 
 
 # gauss elimination with pivoting method
