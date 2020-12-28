@@ -1,15 +1,8 @@
 import math
 import numpy as np
-
-b_input = [5, 2, 3]
-x_input = [1, 1, 1]
 iterations = []
 data = []
-matrix_input = [[1, 2, 3],
-                [2, 4, 5],
-                [3, 4, 2]]
 result = []
-nOfSignificantBits = 3
 
 
 # Method used to calculate sum of matrix's raw
