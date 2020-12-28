@@ -313,6 +313,7 @@ class Ui_MainWindow(object):
 
     def executeMethod(self):
         global answer
+        global dimension
         numberOfIterations = self.iterations_number.value()
         absolute_error = self.absolute_relative_error_text.text()
         number_of_significant_figures = self.significant_figures_spin.value()
