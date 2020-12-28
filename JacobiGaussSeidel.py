@@ -35,6 +35,8 @@ def diagonally_dominant(matrix, n):
 def d_matrix(matrix, n):
     d = [0, 0, 0]
     for i in range(n):
+        if matrix[i][i] == 0 :
+          return False, 0
         d[i] = matrix[i][i]
         matrix[i][i] = 0
     return d, matrix
@@ -57,7 +59,9 @@ def gauss_seidel(n: int, n_iterations: int, matrix: list, b: list, initial_x: li
     for i in range(n):
         new_x.append(0)
     d, matrix = d_matrix(matrix, n)
-
+    if d == False:
+        output = output + "Diagonal Elements Can't Be Zero!"
+        return output
     for i in range(n_iterations):
         # Printing Steps
         output = output + "Iteration " + str(i + 1) + " :\n"
@@ -113,6 +117,9 @@ def gauss_seidel_absolute_error(n: int, error: float, matrix: list, b: list, ini
         last_x.append(0)
     last_x, initial_x = matrix_equality(last_x, initial_x)
     d, matrix = d_matrix(matrix, n)
+    if d == False:
+        output = output + "Diagonal Elements Can't Be Zero!"
+        return output
     i = 0
     while True:
         # Printing Steps
@@ -161,6 +168,9 @@ def jacobi(n: int, n_iterations: int, matrix: list, b: list, initial_x: list, n_
 
     d, matrix = d_matrix(matrix, n)
     output = ""
+    if d == False:
+        output = output + "Diagonal Elements Can't Be Zero!"
+        return output
     for i in range(n_iterations):
         # Printing Steps
         output = output + "Iteration " + str(i + 1) + " :\n"
@@ -196,6 +206,9 @@ def jacobi_absolute_error(n: int, error: float, matrix: list, b: list, initial_x
     for i in range(n):
         new_x.append(0)
     d, matrix = d_matrix(matrix, n)
+    if d == False:
+        output = "Diagonal Elements Can't Be Zero!"
+        return output
     i = 0
     while True:
         # Printing Steps
