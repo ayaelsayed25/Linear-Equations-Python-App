@@ -100,7 +100,7 @@ def jordanelimination(matrix, numberofequ):
             for k in range(numberofequ + 1):
                 matrix[i][k] = matrix[i][k] / temp
     output = output + print_Matrix(matrix)  # printing eliminated matrix
-    solvable(matrix, numberofequ, output)  # determine solution type
+    return solvable(matrix, numberofequ, output)  # determine solution type
 
 
 # determining solution type
