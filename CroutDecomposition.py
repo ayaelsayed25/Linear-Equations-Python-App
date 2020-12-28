@@ -77,7 +77,7 @@ def crout(matrix, b, dimension, number_of_significant_figures):
     answer = answer + "\nU Matrix :\n"
     answer = answer + print_Matrix(U)
 
-    return substitute(L, U, b, dimension, 3, answer)
+    return substitute(L, U, b, dimension, answer)
 
 
 def roundNumber(number, number_of_significant_figures):
