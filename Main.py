@@ -306,7 +306,7 @@ class Ui_MainWindow(object):
                 if temp == '':
                     self.matrixX[i] = 0
                 else:
-                    self.matrixX[i] = int(temp)
+                    self.matrixX[i] = float(temp)
             # print(self.matrixX)
 
         self.executeMethod()
