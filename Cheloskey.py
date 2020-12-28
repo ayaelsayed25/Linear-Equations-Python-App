@@ -1,4 +1,6 @@
-from array import array
+padding = 8
+formatting = '{:' + str(padding) + '}'
+
 import math
 
 
@@ -23,12 +25,15 @@ def cheloskeyDecomposition(a, b, n, precision):
             sum = float(f.format(sum + float(f.format(L[k][j] ** 2))))
         L[k][k] = float(f.format(math.sqrt(float(f.format(a[k][k] - sum)))))
         solution = solution + "\n" + "L[" + str(k) + "][" + str(k) + "] = " + str(L[k][k])
-    return substituteCheloskey(L, b, n, f, x,solution)
+    return substituteCheloskey(L, b, n, f, x, solution)
 
 
-def substituteCheloskey(L, b, n, f, x,solution):
+def substituteCheloskey(L, b, n, f, x, solution):
+    print_Matrix(L,"L")
+
     LT = [[0.0 for j in range(n)] for i in range(n)]
     LT = transpose(L, LT, n)
+    print_Matrix(LT, "U")
     y = [0.0] * n
     # forward sub
     for i in range(0, n):
@@ -67,24 +72,7 @@ def isSymmetric(a, n):
                 return False
     return True
 
-#
-# n = int(input("Enter the number of rows: "))
-# precision = int(input())
-# # Initialize matrix
-# matrix = []
-# print("Enter the entries row wise:")
-#
-# for i in range(n):  # A for loop for row entries
-#     a = array('f', [])
-#     for j in range(n):  # A for loop for column entries
-#         a.append(float(input()))
-#     matrix.append(a)
-# print("Enter b:")
-# b = array('f', [])
-# for i in range(n):
-#     b.append(float(input()))
-# for i in range(n):
-#     for j in range(n):
-#         print(matrix[i][j])
-# x = cheloskeyDecomposition(matrix, b, n, precision)
-# print(x)
+
+def print_Matrix(matrix, matrix_name):
+    return f'\n{matrix_name} :\n' + '\n'.join([''.join([formatting.format(str(item)) for item in row])
+                                               for row in matrix])

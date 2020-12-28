@@ -1,3 +1,7 @@
+padding = 8
+formatting = '{:' + str(padding) + '}'
+
+
 def downLittleDecomposition(a, b, n, precision):
     solution = ""
     scalingFactors = [0.0 for i in range(n)]
@@ -7,7 +11,7 @@ def downLittleDecomposition(a, b, n, precision):
     tolerance = float(f.format(0.5 * 10 ** p))
     x = [0.0 for i in range(n)]  # array of solution
     print("tolerance = ", tolerance)
-    # get scaling factors and indecies
+    # get scaling factors and indicies
     for i in range(0, n):
         index[i] = i
         scalingFactors[i] = float(f.format(abs(a[i][0])))
@@ -22,7 +26,7 @@ def downLittleDecomposition(a, b, n, precision):
         solution = solution + "\n" + "Vector of indices after pivoting at column " + str(k) + " : " + str(index)
         if float(f.format(abs(a[index[k]][k]) / scalingFactors[index[k]])) < tolerance:
             solution = solution + "\n" + "The System is inconsistent"
-            return solution
+            substitute(a, index, n, b, x, f, solution)
         for i in range(k + 1, n):
             factor = float(f.format(a[index[i]][k] / a[index[k]][k]))
             solution = solution + "\n" + "factor at row " + str(i) + " : " + str(factor)
@@ -35,10 +39,7 @@ def downLittleDecomposition(a, b, n, precision):
 
     if float(f.format(abs(a[index[n - 1]][n - 1]) / scalingFactors[index[n - 1]])) < tolerance:
         solution = solution + "\n" + "The System is inconsistent"
-        return solution
-    print(a)
-    return substitute(a, index, n, b, x, f,solution)
-
+    return substitute(a, index, n, b, x, f, solution)
 
 
 def pivot(a, index, scalingFactors, n, k, f):
@@ -55,7 +56,7 @@ def pivot(a, index, scalingFactors, n, k, f):
     return index
 
 
-def substitute(a, index, n, b, x, f,solution):
+def substitute(a, index, n, b, x, f, solution):
     # forward sub
     y = [0.0] * n
     y[index[0]] = b[index[0]]
@@ -78,6 +79,10 @@ def substitute(a, index, n, b, x, f,solution):
         solution = solution + "\n" + "Solution vector x at row " + str(i) + " : " + str(x)
     return solution
 
+
+def print_Matrix(matrix, matrix_name):
+    return f'\n{matrix_name} :\n' + '\n'.join([''.join([formatting.format(str(item)) for item in row])
+                                               for row in matrix])
 # n = int(input("Enter the number of rows: "))
 # precision = int(input())
 # # Initialize matrix
