@@ -312,12 +312,12 @@ class Ui_MainWindow(object):
         self.executeMethod()
 
     def executeMethod(self):
-        global method
         global answer
         numberOfIterations = self.iterations_number.value()
         absolute_error = self.absolute_relative_error_text.text()
         number_of_significant_figures = self.significant_figures_spin.value()
         augumentedMatrixA = deepcopy(self.matrixA)
+        method = self.method_combo.currentIndex()
         for i in range(0, dimension):
             augumentedMatrixA[i].append(self.matrixB[i])
         if method == 0:
