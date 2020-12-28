@@ -292,13 +292,13 @@ class Ui_MainWindow(object):
                 if temp == '':
                     self.matrixA[i][j] = 0
                 else:
-                    self.matrixA[i][j] = int(temp)
+                    self.matrixA[i][j] = float(temp)
         for i in range(0, dimension):
             temp = self.gridLayoutWidget.findChild(QtWidgets.QLineEdit, "B" + str(i)).text()
             if temp == '':
                 self.matrixB[i] = 0
             else:
-                self.matrixB[i] = int(temp)
+                self.matrixB[i] = float(temp)
         if method == 5 or method == 4:
             self.matrixX = [0 for x in range(dimension)]
             for i in range(0, dimension):
