@@ -37,6 +37,8 @@ def crout(matrix, b, dimension, number_of_significant_figures):
     answer = answer + "\n\n"
     #  Calculating the elements in the first row of [U] (except U11 which was already calculated)
     for i in range(1, dimension):
+        if (L[0][0]==0):
+            return "division by zero!"
         U[0][i] = matrix[0][i] / L[0][0]
         U[0][i] = roundNumber(U[0][i], number_of_significant_figures)
     # Calculating the rest of the elements row after row
@@ -68,6 +70,8 @@ def crout(matrix, b, dimension, number_of_significant_figures):
                 sigma_sum += roundNumber(roundNumber(L[i][k], number_of_significant_figures) *
                                          roundNumber(U[k][j], number_of_significant_figures),
                                          number_of_significant_figures)
+            if ( L[i][i]==0):
+                return "division by zero!"
             U[i][j] = roundNumber((matrix[i][j] - sigma_sum) / L[i][i], number_of_significant_figures)
             answer = answer + str(sigma_sum)
             answer = answer + f"\nU{i}{j} =( {matrix[i][j]} - {sigma_sum} ) / {L[i][i]} = {U[i][j]}\n\n"

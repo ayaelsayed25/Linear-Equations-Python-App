@@ -1,5 +1,6 @@
 import math
 import numpy as np
+
 iterations = []
 data = []
 result = []
@@ -27,8 +28,8 @@ def diagonally_dominant(matrix, n):
 def d_matrix(matrix, n):
     d = [0, 0, 0]
     for i in range(n):
-        if matrix[i][i] == 0 :
-          return False, 0
+        if matrix[i][i] == 0:
+            return False, 0
         d[i] = matrix[i][i]
         matrix[i][i] = 0
     return d, matrix
@@ -70,7 +71,7 @@ def gauss_seidel(n: int, n_iterations: int, matrix: list, b: list, initial_x: li
                 infinity = np.isinf(new_x[j])
                 if nan or infinity:
                     output = output + "Can't reach this number of iterations \n"
-                    return test(output, i - 1,n)
+                    return test(output, i - 1, n)
                 if new_x[j] != 0:
                     new_x[j] = round(new_x[j], n_sig_fig - int(math.floor(math.log10(abs(new_x[j])))) - 1)
                     initial_x[j] = new_x[j]
@@ -81,7 +82,7 @@ def gauss_seidel(n: int, n_iterations: int, matrix: list, b: list, initial_x: li
         # Adding results of each iteration
         for item in initial_x:
             result.append(item)
-    return test(output, n_iterations,n)
+    return test(output, n_iterations, n)
 
 
 def maximum_error(initial_x, new_x):
@@ -129,7 +130,7 @@ def gauss_seidel_absolute_error(n: int, error: float, matrix: list, b: list, ini
                 infinity = np.isinf(new_x[j])
                 if nan or infinity:
                     output = output + "Can't reach this relative error \n"
-                    return test(output, i - 1,n)
+                    return test(output, i - 1, n)
                 if new_x[j] != 0:
                     new_x[j] = round(new_x[j], n_sig_fig - int(math.floor(math.log10(abs(new_x[j])))) - 1)
             initial_x[j] = new_x[j]
@@ -143,14 +144,14 @@ def gauss_seidel_absolute_error(n: int, error: float, matrix: list, b: list, ini
         infinity = any(np.isinf(new_x[:]))
         if nan or infinity:
             output = output + "It can't reach this absolute relative error \n"
-            return test(output, i,n)
+            return test(output, i, n)
         # Adding results of each iteration
         for item in initial_x:
             result.append(item)
         i = i + 1
         if absolute_error <= error:
             break
-    return test(output, i,n)
+    return test(output, i, n)
 
 
 def jacobi(n: int, n_iterations: int, matrix: list, b: list, initial_x: list, n_sig_fig: int):
@@ -179,7 +180,7 @@ def jacobi(n: int, n_iterations: int, matrix: list, b: list, initial_x: list, n_
                 infinity = np.isinf(new_x[j])
                 if nan or infinity:
                     output = output + "Can't reach this number of iterations \n"
-                    return test(output, i - 1,n)
+                    return test(output, i - 1, n)
                 if new_x[j] != 0:
                     new_x[j] = round(new_x[j], n_sig_fig - int(math.floor(math.log10(abs(new_x[j])))) - 1)
             # Steps Formatting
@@ -190,7 +191,7 @@ def jacobi(n: int, n_iterations: int, matrix: list, b: list, initial_x: list, n_
         # Adding results of each iteration
         for item in initial_x:
             result.append(item)
-    return test(output, n_iterations,n)
+    return test(output, n_iterations, n)
 
 
 def jacobi_absolute_error(n: int, error: float, matrix: list, b: list, initial_x: list, n_sig_fig: int):
@@ -218,7 +219,7 @@ def jacobi_absolute_error(n: int, error: float, matrix: list, b: list, initial_x
                 infinity = np.isinf(new_x[j])
                 if nan or infinity:
                     output = output + "Can't reach this relative error \n"
-                    return test(output, i - 1,n)
+                    return test(output, i - 1, n)
                 if new_x[j] != 0:
                     new_x[j] = round(new_x[j], n_sig_fig - int(math.floor(math.log10(abs(new_x[j])))) - 1)
             # Steps Formatting
@@ -233,7 +234,7 @@ def jacobi_absolute_error(n: int, error: float, matrix: list, b: list, initial_x
         i = i + 1
         if absolute_error <= error:
             break
-    return test(output, i,n)
+    return test(output, i, n)
 
 
 # Method Used for Output Table's data creation
@@ -255,7 +256,7 @@ def show_result(n_iterations: int, n: int, output: str):
     return output
 
 
-def test(output, nOfIterations,dimesion):
+def test(output, nOfIterations, dimesion):
     global result
     result = result[0:dimesion * nOfIterations]
     return show_result(nOfIterations, dimesion, output)
