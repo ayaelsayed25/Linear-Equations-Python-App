@@ -1,0 +1,393 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>MainWindow</class>
+ <widget class="QMainWindow" name="MainWindow">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>848</width>
+    <height>592</height>
+   </rect>
+  </property>
+  <property name="font">
+   <font>
+    <family>Sitka Text</family>
+    <weight>75</weight>
+    <bold>true</bold>
+   </font>
+  </property>
+  <property name="windowTitle">
+   <string>MainWindow</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <widget class="QFrame" name="frame">
+    <property name="geometry">
+     <rect>
+      <x>-20</x>
+      <y>-10</y>
+      <width>871</width>
+      <height>611</height>
+     </rect>
+    </property>
+    <property name="palette">
+     <palette>
+      <active>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>237</green>
+          <blue>206</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </active>
+      <inactive>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>255</green>
+          <blue>255</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>237</green>
+          <blue>206</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </inactive>
+      <disabled>
+       <colorrole role="Base">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>237</green>
+          <blue>206</blue>
+         </color>
+        </brush>
+       </colorrole>
+       <colorrole role="Window">
+        <brush brushstyle="SolidPattern">
+         <color alpha="255">
+          <red>255</red>
+          <green>237</green>
+          <blue>206</blue>
+         </color>
+        </brush>
+       </colorrole>
+      </disabled>
+     </palette>
+    </property>
+    <property name="layoutDirection">
+     <enum>Qt::LeftToRight</enum>
+    </property>
+    <property name="autoFillBackground">
+     <bool>true</bool>
+    </property>
+    <property name="frameShape">
+     <enum>QFrame::StyledPanel</enum>
+    </property>
+    <property name="frameShadow">
+     <enum>QFrame::Raised</enum>
+    </property>
+    <widget class="QWidget" name="horizontalLayoutWidget">
+     <property name="geometry">
+      <rect>
+       <x>110</x>
+       <y>100</y>
+       <width>671</width>
+       <height>231</height>
+      </rect>
+     </property>
+     <layout class="QHBoxLayout" name="MatricesGrid">
+      <property name="sizeConstraint">
+       <enum>QLayout::SetNoConstraint</enum>
+      </property>
+      <item>
+       <widget class="QLabel" name="matrixA_label">
+        <property name="text">
+         <string>Coefficient Matrix A :</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QGridLayout" name="MatrixAGrid">
+        <item row="0" column="0">
+         <widget class="QTextEdit" name="A00"/>
+        </item>
+        <item row="2" column="0">
+         <widget class="QTextEdit" name="A20"/>
+        </item>
+        <item row="1" column="1">
+         <widget class="QTextEdit" name="A11"/>
+        </item>
+        <item row="1" column="2">
+         <widget class="QTextEdit" name="A12"/>
+        </item>
+        <item row="0" column="2">
+         <widget class="QTextEdit" name="A02"/>
+        </item>
+        <item row="0" column="1">
+         <widget class="QTextEdit" name="A01"/>
+        </item>
+        <item row="2" column="1">
+         <widget class="QTextEdit" name="A21"/>
+        </item>
+        <item row="1" column="0">
+         <widget class="QTextEdit" name="A10"/>
+        </item>
+        <item row="2" column="2">
+         <widget class="QTextEdit" name="A22"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="matrixB_label">
+        <property name="text">
+         <string>Constant Matrix B :</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="MatrixB_grid">
+        <item>
+         <widget class="QTextEdit" name="B0"/>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="B1"/>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="B2"/>
+        </item>
+       </layout>
+      </item>
+      <item>
+       <widget class="QLabel" name="matrixX_label">
+        <property name="text">
+         <string>Initial Guess X :</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <layout class="QVBoxLayout" name="MatrixX_grid">
+        <item>
+         <widget class="QTextEdit" name="X0"/>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="X1"/>
+        </item>
+        <item>
+         <widget class="QTextEdit" name="X2"/>
+        </item>
+       </layout>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QLabel" name="title">
+     <property name="geometry">
+      <rect>
+       <x>210</x>
+       <y>20</y>
+       <width>481</width>
+       <height>61</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Yu Gothic</family>
+       <pointsize>20</pointsize>
+       <weight>50</weight>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Solving System of Linear Equations</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+    <widget class="QWidget" name="gridLayoutWidget_2">
+     <property name="geometry">
+      <rect>
+       <x>160</x>
+       <y>350</y>
+       <width>561</width>
+       <height>171</height>
+      </rect>
+     </property>
+     <layout class="QGridLayout" name="toolsGrid">
+      <item row="0" column="0">
+       <widget class="QLabel" name="matrixA_dimen">
+        <property name="text">
+         <string>Number of variables ( Dimension of A )</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QSpinBox" name="dimensionA_spin">
+        <property name="value">
+         <number>3</number>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="0">
+       <widget class="QLabel" name="iterations_number_label">
+        <property name="text">
+         <string>Number of iterations :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QComboBox" name="method_combo">
+        <property name="editable">
+         <bool>true</bool>
+        </property>
+        <property name="currentText">
+         <string>Gauss Elimination</string>
+        </property>
+        <property name="modelColumn">
+         <number>0</number>
+        </property>
+        <item>
+         <property name="text">
+          <string>Gauss Elimination</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Gaus Jordan Elimination using pivoting</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Gauss Jordan</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>LU Decompostion</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Gauss Siedel</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Jacobi Iteration</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="5" column="1">
+       <widget class="QComboBox" name="decomposition_method_combo">
+        <item>
+         <property name="text">
+          <string>Downlittle Form</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Crout Form</string>
+         </property>
+        </item>
+        <item>
+         <property name="text">
+          <string>Cholesky Form</string>
+         </property>
+        </item>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QLabel" name="methods_label">
+        <property name="text">
+         <string>Method :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="7" column="1">
+       <widget class="QSpinBox" name="iterations_number">
+        <property name="value">
+         <number>3</number>
+        </property>
+       </widget>
+      </item>
+      <item row="5" column="0">
+       <widget class="QLabel" name="paremters_label">
+        <property name="text">
+         <string>Method of decomposition :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="0">
+       <widget class="QLabel" name="significant_figures_label">
+        <property name="text">
+         <string>Number of Significant Figures :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="4" column="1">
+       <widget class="QSpinBox" name="significant_figures_spin">
+        <property name="value">
+         <number>3</number>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="0">
+       <widget class="QLabel" name="absolute_erroe_label">
+        <property name="text">
+         <string>Absolute Relative Error :</string>
+        </property>
+       </widget>
+      </item>
+      <item row="6" column="1">
+       <widget class="QTextEdit" name="absolute_relative_error_text"/>
+      </item>
+     </layout>
+    </widget>
+    <widget class="QPushButton" name="calculate_button">
+     <property name="geometry">
+      <rect>
+       <x>380</x>
+       <y>540</y>
+       <width>101</width>
+       <height>31</height>
+      </rect>
+     </property>
+     <property name="font">
+      <font>
+       <family>Nirmala UI Semilight</family>
+       <pointsize>10</pointsize>
+       <weight>50</weight>
+       <italic>false</italic>
+       <bold>false</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Calculate</string>
+     </property>
+    </widget>
+   </widget>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

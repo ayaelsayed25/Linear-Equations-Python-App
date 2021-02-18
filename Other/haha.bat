@@ -1,0 +1,1 @@
+pyuic5.exe -x answer.ui -o answer.py
